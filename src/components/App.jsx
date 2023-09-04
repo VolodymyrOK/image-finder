@@ -24,7 +24,10 @@ export class App extends Component {
       this.setState({ isLoading: true });
 
       try {
-        const { images, totalImages } = await fetchImages(currentSearch, 1);
+        const { images, totalImages } = await fetchImages(
+          currentSearch,
+          this.state.page
+        );
         if (totalImages === 0) {
           alert('No images');
           return;
@@ -55,11 +58,7 @@ export class App extends Component {
   };
 
   handleLoadMore = async () => {
-    this.setState(prevState => {
-      return {
-        page: prevState.page + 1,
-      };
-    });
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   handleImageClick = ({ tags, largeImageURL }) => {
